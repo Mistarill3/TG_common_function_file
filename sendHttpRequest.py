@@ -189,6 +189,38 @@ def getChat(token, chatId):
 
 
 
+def getChatMemberCount(token, chatId):
+    print("==startSendHttpRequest.GetChatMemberCount")
+
+    url = "https://api.telegram.org/bot"+token+"/getChatMemberCount?chat_id="+chatId
+    try:
+        with urllib.request.urlopen(url) as response:
+            print("==getChat")
+            
+            resBody = response.read()
+            resBody_json = json.loads(resBody)
+            print("==resBody_json")
+            print(json.dumps(resBody_json))
+            
+            print("==endSendHttpRequest.GetChatMemberCount")            
+            return resBody_json
+        
+    except urllib.error.HTTPError as e:
+        print("==except")        
+        print(e.code)
+        if e.code == 400:
+            print("==userNotFoundInChatroom")
+            print("==returnData")
+            return
+        elif e.code == 404:
+            print("==wrongChatIdOrToken?")
+            print("==returnData")
+            return
+        else:
+            raise e
+
+
+
 def getChatMember(token, chatId, userId):
     print("==startSendHttpRequest.GetChatMember")
 
