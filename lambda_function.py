@@ -1,15 +1,13 @@
 import os
-import json
-import urllib.parse
 
 import ypsilon_function
-import sendHttpRequest
+import send_http_request
 
-token = os.environ["TELEGRAM_BOT_TOKEN"] #合いの手Bot
+token = os.environ["TELEGRAM_BOT_TOKEN"]
 
 
 def lambda_handler(event, context):
-    print("==startLambdaHandler")
+    print("== startLambdaHandler")
 
     #BotがWebHookで呼ばれるときはアクティブにする
     #print("==event")
@@ -30,11 +28,11 @@ def lambda_handler(event, context):
         traceback.print_exc()
         
         #エラー通知を投げる
-        chatId = os.environ["TELEGRAM_CHAT_ID_FOR_ERRORMESSAGE"]
-        messageText = "XXX-functionがエラー吐いてまーす"
+        chat_id = os.environ["TELEGRAM_CHAT_ID_FOR_ERRORMESSAGE"]
+        message_text = "XXX-functionがエラー出してます"
         
-        sendHttpRequest.sendMessage(token, chatId, messageText)
+        send_http_request.send_message(token, chat_id, message_text)
 
-    print("==endLamdaHandler")
+    print("== endLamdaHandler")
     print(returnData)
     return returnData
